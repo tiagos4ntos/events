@@ -1,24 +1,23 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
 @Component({
     selector: 'event-thumbnail',
-    template: `<div class="well hoverwell thumbnail">
-                    <h2>{{event.name}}</h2>
-                    <div>Data: {{event.date}}</div>
-                    <div>Hora: {{event.time}}</div>
-                    <div>Preço: R\${{event.price}}</div>
-                    <div>
-                        <span>Endereço: {{event.location.address}}</span>
-                        <span>&nbsp;</span>
-                        <span>{{event.location.city}}, {{event.location.country}}, {{event.location.zipCode}}</span>                        
-                    </div>
-                    <button class="btn btn-primary" (click)="handleCLickMe()">Click Me!</button>
-                </div>`
+    templateUrl: 'app/events/event-thumbnail.component.html',
+    styles: [`
+        .thumbnail { min-height: 210px; }
+        .pad-left { margin-left: 10px; }
+        .well div { color: #bbb; }
+        .green {color: #003300 !important; }
+        .bold { font-weight: bold; }
+    `]
 })
 
 export class EventThumbnailComponent {
     @Input() event:any
-    @Output() eventClick = new EventEmitter()
-    handleCLickMe(){
-        this.eventClick.emit(this.event.name)
+
+    getStartedClassForTime(){
+        if (this.event && this.event.time === '8:00 am')
+        return " green bold"
     }
+    
 }
