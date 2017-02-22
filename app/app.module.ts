@@ -9,6 +9,7 @@ import { EventsAppComponent } from './events-app.component';
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router'
+import { CreateEventComponent } from './events/create-event.component'
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { RouterModule } from '@angular/router'
         EventsListComponent,
         EventThumbnailComponent,
         MenuComponent,
-        EventDetailsComponent
+        EventDetailsComponent,
+        CreateEventComponent
         ],
     providers: [ EventService, ToastrService ],
     bootstrap: [ EventsAppComponent ]
