@@ -1,15 +1,23 @@
-import { appRoutes } from './route';
-import { EventDetailsComponent } from './events/event-details/event-details.component';
-import { ToastrService } from './commom/toastr.service';
-import { EventService } from './events/shared/eventServices';
-import { MenuComponent } from './menu/menu.component';
-import { EventThumbnailComponent } from './events/event-thumbnail.component';
-import { EventsListComponent } from './events/events-list.component';
-import { EventsAppComponent } from './events-app.component';
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router'
-import { CreateEventComponent } from './events/create-event.component'
+
+import {
+    EventsListComponent,
+    EventThumbnailComponent,
+    CreateEventComponent,
+    EventDetailsComponent,
+    EventService,
+    EventRouteActivator,
+    EventListResolver
+} from './events/index'
+
+import { NotFoundComponent } from './errors/404.component';
+import { appRoutes } from './route';
+import { ToastrService } from './commom/toastr.service';
+import { MenuComponent } from './menu/menu.component';
+import { EventsAppComponent } from './events-app.component';
+
 
 @NgModule({
     imports: [
@@ -22,11 +30,27 @@ import { CreateEventComponent } from './events/create-event.component'
         EventThumbnailComponent,
         MenuComponent,
         EventDetailsComponent,
-        CreateEventComponent
+        CreateEventComponent,
+        NotFoundComponent
         ],
-    providers: [ EventService, ToastrService ],
+    providers: [ 
+        EventService, 
+        ToastrService, 
+        EventRouteActivator, 
+        EventListResolver,
+        { 
+            provide: 'canDeactivateCreateEvent', 
+            useValue: checkDirtyState 
+        }
+    ],
     bootstrap: [ EventsAppComponent ]
 })
 export class AppModule{
 
+}
+
+function checkDirtyState(component: CreateEventComponent){
+    if(component.isDirty)
+        return window.confirm('You have not save this event. Do you really want to cancel?')
+    return true
 }
