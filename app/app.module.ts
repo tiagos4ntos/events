@@ -1,3 +1,5 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './user/auth.service';
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router'
@@ -22,6 +24,8 @@ import { EventsAppComponent } from './events-app.component';
 @NgModule({
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         RouterModule.forRoot(appRoutes)
     ],
     declarations: [
@@ -38,6 +42,7 @@ import { EventsAppComponent } from './events-app.component';
         ToastrService, 
         EventRouteActivator, 
         EventListResolver,
+        AuthService,
         { 
             provide: 'canDeactivateCreateEvent', 
             useValue: checkDirtyState 
