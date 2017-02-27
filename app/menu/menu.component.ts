@@ -1,3 +1,4 @@
+import { EventService, ISession } from './../events/index';
 import { AuthService } from './../user/auth.service';
 import { Component } from '@angular/core';
 
@@ -12,8 +13,16 @@ import { Component } from '@angular/core';
     `]
 })
 export class MenuComponent {
-    constructor(private authService: AuthService){
+    searchTerm:string = "";
+    foundSessions: ISession[];
+
+    constructor(private authService: AuthService, private eventService:EventService){
         
     }
 
+    searchSessions(searchTerm){
+        this.eventService.searchSessions(searchTerm).subscribe(sessions => {
+            this.foundSessions = sessions;
+        });
+    }
 }
