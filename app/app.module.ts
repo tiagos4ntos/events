@@ -4,13 +4,15 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { RouterModule } from '@angular/router'
 
+import { HttpModule } from '@angular/http'
+
 import {
     EventsListComponent,
     EventThumbnailComponent,
     CreateEventComponent,
     EventDetailsComponent,
     EventService,
-    EventRouteActivator,
+    EventResolver,
     EventListResolver,
     CreateSessionComponent,
     SessionListComponent,
@@ -42,6 +44,7 @@ declare let jQuery : Object
     imports: [
         BrowserModule,
         FormsModule,
+        HttpModule,
         ReactiveFormsModule,
         RouterModule.forRoot(appRoutes)
     ],
@@ -72,7 +75,7 @@ declare let jQuery : Object
             provide: JQ_TOKEN,
             useValue: jQuery
         }, 
-        EventRouteActivator, 
+        EventResolver, 
         EventListResolver,
         VoterService,
         AuthService,
